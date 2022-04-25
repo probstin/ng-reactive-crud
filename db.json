@@ -1,0 +1,13 @@
+{
+    "projects": [
+        {
+            "id": 1,
+            "name": "My Favorite Project",
+            "description": "This project is a showcase of Angular's Reactive Forms.",
+            "poc": "Justin Probst",
+            "pocEmail": "test@email.com",
+            "reactive": true,
+            "category": "Angular"
+        }
+    ]
+}

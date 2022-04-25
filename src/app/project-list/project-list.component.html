@@ -1,0 +1,12 @@
+<div class="p-4 xl:p-6 flex align-items-center justify-content-between">
+    <h1 class="m-0">Projects</h1>
+    <a [routerLink]="createRoute" pButton class="no-underline">Create a New Project</a>
+</div>
+<div class="p-4 xl:p-6">
+    <ng-container *ngIf="(projects$ | async) as projects">
+        <div *ngFor="let project of projects" class="p-4 border-1 surface-border border-round">
+            <a [routerLink]="project.id" class="block text-xl  mb-3 no-underline">{{project.name}}</a>
+            <pre>{{project | json}}</pre>
+        </div>
+    </ng-container>
+</div>
