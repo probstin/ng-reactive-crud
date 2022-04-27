@@ -6,6 +6,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   exports: [
@@ -15,7 +16,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     DropdownModule,
     InputTextareaModule,
     CheckboxModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    NgxPaginationModule
   ]
 })
 export class PrimengModule { }

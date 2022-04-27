@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { combineLatest, map, Observable, startWith, tap } from 'rxjs';
 import { ProjectsService } from '../projects.service';
 
 @Component({
@@ -8,13 +9,42 @@ import { ProjectsService } from '../projects.service';
 })
 export class ProjectListComponent implements OnInit {
 
+  filteredProjects$!: Observable<any[]>;
+  filterInput: FormControl = new FormControl('');
   createRoute: string = 'create';
-  projects$!: Observable<any[]>;
+  itemsPerPage: number = 5;
+  currentPage: number = 1;
+  totalItems: number = 0;
 
   constructor(private projectsService: ProjectsService) { }
 
+  // =====================
+  // lifecycle
+  // =====================
+
   ngOnInit(): void {
-    this.projects$ = this.projectsService.getAllProjects();
+    const projects$: Observable<any[]> = this._getProjects();
+    const filterText$: Observable<string> = this._getFilterInputChanges();
+    this.filteredProjects$ = this._getFilteredProjects(projects$, filterText$);
+  }
+
+  // =====================
+  // helpers
+  // =====================
+
+  private _getProjects(): Observable<any> {
+    return this.projectsService.getAllProjects().pipe(tap(projects => this.totalItems = projects.length));
+  }
+
+  private _getFilterInputChanges(): Observable<string> {
+    return this.filterInput.valueChanges.pipe(startWith(''));
+  }
+
+  private _getFilteredProjects(projects$: Observable<any[]>, filterText$: Observable<string>): Observable<any[]> {
+    return combineLatest([projects$, filterText$])
+      .pipe(map(([projects, filterText]) => {
+        return projects.filter(project => project.name.toLowerCase().indexOf(filterText.toLowerCase()) !== -1);
+      }));
   }
 
 }

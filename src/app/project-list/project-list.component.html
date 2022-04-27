@@ -3,10 +3,17 @@
     <a [routerLink]="createRoute" pButton class="no-underline">Create a New Project</a>
 </div>
 <div class="p-4 xl:p-6">
-    <ng-container *ngIf="(projects$ | async) as projects">
-        <div *ngFor="let project of projects" class="p-4 border-1 surface-border border-round">
+    <ng-container *ngIf="(filteredProjects$ | async) as filteredProjects">
+        <div class="flex align-items-center justify-content-between mb-3">
+            <input pInputText class="flex-1" [formControl]="filterInput" placeholder="Filter by project name..." />
+        </div>
+        <div *ngFor="let project of filteredProjects | paginate: { itemsPerPage, currentPage, totalItems }; let last = last"
+            class="p-4 border-1 surface-border border-round" [ngClass]="{'mb-3': !last}">
             <a [routerLink]="project.id" class="block text-xl  mb-3 no-underline">{{project.name}}</a>
-            <pre>{{project | json}}</pre>
+            <pre class="m-0">{{project | json}}</pre>
+        </div>
+        <div class="flex -items-center justify-content-center">
+            <pagination-controls class="custom-paginator" (pageChange)="currentPage = $event"></pagination-controls>
         </div>
     </ng-container>
 </div>

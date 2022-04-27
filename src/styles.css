@@ -10,3 +10,9 @@ body {
 .text-error {
     color: red;
 }
+
+.custom-paginator .ngx-pagination .current {
+    background: #acd8ff;
+    color: darkblue;
+    border-radius: 4px;
+}
