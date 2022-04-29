@@ -1,0 +1,6 @@
+<div class="mb-3 p-3 bg-primary text-white" *ngIf="error">{{error}}</div>
+<app-project-form 
+    [project]="project" 
+    (formSubmitted)="editProject($event)" 
+    (formCancelled)="cancelEdit($event)">
+</app-project-form>

@@ -1,0 +1,14 @@
+<ul class="m-0 border-bottom-1 surface-border list-none p-3 surface-ground flex font-medium">
+    <li class="relative pr-2">
+        <a routerLink="/projects" class="cursor-pointer">Projects</a>
+    </li>
+    <span class="relative px-2 text-500">></span>
+    <span class="relative px-2 text-500">Create</span>
+</ul>
+<div class="p-4 xl:p-6">
+    <h1 class="m-0 mb-4">Create a New Project</h1>
+    <app-project-form 
+        (formSubmitted)="createProject($event)" 
+        (formCancelled)="cancelCreate($event)">
+    </app-project-form>
+</div>

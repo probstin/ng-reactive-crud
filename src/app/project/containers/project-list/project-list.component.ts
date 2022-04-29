@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { combineLatest, map, Observable, startWith, tap } from 'rxjs';
-import { ProjectsService } from '../projects.service';
+import { ProjectsService } from '../../services/projects.service';
 
 @Component({
   selector: 'app-project-list',
@@ -33,7 +33,9 @@ export class ProjectListComponent implements OnInit {
   // =====================
 
   private _getProjects(): Observable<any> {
-    return this.projectsService.getAllProjects().pipe(tap(projects => this.totalItems = projects.length));
+    return this.projectsService
+      .getAllProjects()
+      .pipe(tap(projects => this.totalItems = projects.length));
   }
 
   private _getFilterInputChanges(): Observable<string> {

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-project-form',
@@ -8,24 +7,25 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class ProjectFormComponent implements OnInit {
 
+  @Input() project!: any;
+
+  @Output() formCancelled = new EventEmitter<boolean>();
+  @Output() formSubmitted = new EventEmitter<any>();
+
   projectForm!: FormGroup;
   submitted: boolean = false;
-  loading: boolean = false;
   createMode: boolean = false;
-  categories = ['Angular', 'React']
+  categories = ['Angular', 'React'];
 
-  constructor(
-    private _fb: FormBuilder,
-    private _ref: DynamicDialogRef,
-    private _config: DynamicDialogConfig
-  ) { }
+  constructor(private _fb: FormBuilder) { }
 
   // ==================
   // lifecycle
   // ==================
 
   ngOnInit(): void {
-    const project = this._config.data.project;
+    const project = this.project;
+
     this.createMode = !project;
 
     this.projectForm = this._fb.group({
@@ -37,27 +37,30 @@ export class ProjectFormComponent implements OnInit {
       category: ['', Validators.required]
     });
 
-    if (!this.createMode) {
-      this.projectForm.patchValue(project);
-    }
+    if (!this.createMode) this.projectForm.patchValue(project);
   }
 
   // ==================
   // form submission
   // ==================
 
+  onCancel(): void {
+    // check to see if changes have been made
+    if (!this.projectForm.pristine) return;
+
+    this.formCancelled.emit(true);
+  }
+
   onSubmit(): void {
     this.submitted = true;
-    this.loading = true;
 
-    if (this.projectForm.invalid) {
-      console.log(this.projectForm.controls);
-      return;
-    }
+    // reject if the form is invalid
+    if (this.projectForm.invalid) return;
 
-    const formValue = this.projectForm.value;
+    // get the raw value (includes the disabled fields)
+    const formValue = this.projectForm.getRawValue();
 
-    console.log(formValue);
+    this.formSubmitted.emit(formValue);
   }
 
   // ==================

@@ -1,8 +1,8 @@
-<div class="p-4 xl:p-6 flex align-items-center justify-content-between">
+<div class="p-3 xl:p-6 xl:pb-3 flex align-items-center justify-content-between">
     <h1 class="m-0">Projects</h1>
-    <a [routerLink]="createRoute" pButton class="no-underline">Create a New Project</a>
+    <a [routerLink]="createRoute" pButton class="no-underline"><i class="pi pi-plus mr-2"></i>Create a New Project</a>
 </div>
-<div class="p-4 xl:p-6">
+<div class="p-3 xl:p-6 xl:pt-3">
     <ng-container *ngIf="(filteredProjects$ | async) as filteredProjects">
         <div class="flex align-items-center justify-content-between mb-3">
             <input pInputText class="flex-1" [formControl]="filterInput" placeholder="Filter by project name..." />

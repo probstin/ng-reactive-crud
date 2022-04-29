@@ -1,57 +1,97 @@
-<form [formGroup]="projectForm" (ngSubmit)="onSubmit()" novalidate class="grid formgrid p-fluid">
-
+<form 
+    [formGroup]="projectForm" 
+    (ngSubmit)="onSubmit()"
+    class="grid formgrid p-fluid">
+    <!-- ID -->
     <ng-container *ngIf="!createMode">
         <div class="field mb-4 col-12">
             <label for="id">ID</label>
             <input id="id" type="text" formControlName="id" pInputText />
         </div>
     </ng-container>
-
+    <!-- NAME -->
     <div class="field mb-4 col-12">
         <label for="name">Name</label>
-        <input id="name" type="text" formControlName="name" pInputText
+        <input 
+            id="name" 
+            type="text" 
+            formControlName="name" 
+            pInputText
             [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['name'].errors }" />
         <div *ngIf="submitted && f['name'].errors" class="mt-2 text-error text-sm">
             <span *ngIf="f['name'].errors['required']">Name is required</span>
         </div>
     </div>
-
+    <!-- DESCRIPTION -->
     <div class="field mb-4 col-12">
         <label for="description">Description</label>
-        <textarea name="description" id="description" cols="30" rows="10" formControlName="description"
-            pInputTextarea></textarea>
+        <textarea 
+            name="description" 
+            id="description" 
+            cols="30" 
+            rows="10" 
+            formControlName="description"
+            pInputTextarea>
+        </textarea>
     </div>
-
+    <!-- POC -->
     <div class="field mb-4 col-6">
         <label for="poc">POC</label>
-        <input type="text" id="poc" formControlName="poc" pInputText
+        <input 
+            type="text" 
+            id="poc" 
+            formControlName="poc" 
+            pInputText
             [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['poc'].errors }" />
         <div *ngIf="submitted && f['poc'].errors" class="mt-2 text-error text-sm">
             <span *ngIf="f['poc'].errors['required']">POC is required</span>
         </div>
     </div>
-
+    <!-- POC EMAIL -->
     <div class="field mb-4 col-6">
         <label for="pocEmail">POC Email</label>
-        <input type="email" id="pocEmail" formControlName="pocEmail" pInputText
+        <input 
+            type="email" 
+            id="pocEmail" 
+            formControlName="pocEmail" 
+            pInputText
             [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['pocEmail'].errors }" />
         <div *ngIf="submitted && f['pocEmail'].errors" class="mt-2 text-error text-sm">
             <span *ngIf="f['pocEmail'].errors['required']">POC Email is required</span>
         </div>
     </div>
-
+    <!-- CATEGORY -->
     <div class="field mb-4 col-12">
         <label for="reactive">Category</label>
-        <p-dropdown [options]="categories" formControlName="category" placeholder="Select a category"
-            [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['category'].errors }"></p-dropdown>
+        <p-dropdown 
+            [options]="categories" 
+            formControlName="category" 
+            placeholder="Select a category"
+            [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['category'].errors }">
+        </p-dropdown>
         <div *ngIf="submitted && f['category'].errors" class="mt-2 text-error text-sm">
             <span *ngIf="f['category'].errors['required']">Category is required</span>
         </div>
     </div>
-
+    <!-- ACTIONS -->
     <div class="col-12 flex align-items-center justify-content-end border-top-1 surface-border pt-4">
-        <button type="submit" pButton class="w-auto" [disabled]="projectForm.invalid || projectForm.pristine">
-            {{createMode ? 'Create Project' : 'SaveChanges'}}
+        <!-- CANCEL BUTTON -->
+        <button
+            type="button" 
+            pButton
+            class="w-auto p-button-text p-button-secondary"
+            (click)="onCancel()">
+            <i class="pi pi-times mr-2"></i>
+            Cancel
+        </button>
+        <!-- SUBMIT BUTTON -->
+        <button 
+            type="submit"
+            pButton
+            class="w-auto ml-2" 
+            [disabled]="projectForm.invalid || projectForm.pristine">
+            <i class="pi pi-check mr-2"></i>
+            {{createMode ? 'Create Project' : 'Save Changes'}}
         </button>
     </div>
 </form>
