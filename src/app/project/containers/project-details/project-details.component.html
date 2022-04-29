@@ -8,7 +8,12 @@
     </ul>
     <div class="p-4 xl:p-6 flex align-items-center justify-content-between">
         <h1 class="m-0">{{project?.name || '--'}}</h1>
-        <button pButton pRipple (click)="editProject(project)">Edit Project</button>
+        <button 
+            pButton 
+            pRipple 
+            (click)="editProject(project)">
+            Edit Project
+        </button>
     </div>
     <div class="p-4 xl:p-6">
         <pre>{{project | json}}</pre>
