@@ -7,6 +7,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { StepsModule } from 'primeng/steps';
+import { MenuModule } from 'primeng/menu';
 
 @NgModule({
   exports: [
@@ -17,7 +19,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputTextareaModule,
     CheckboxModule,
     DynamicDialogModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    StepsModule,
+    MenuModule
   ]
 })
 export class PrimengModule { }

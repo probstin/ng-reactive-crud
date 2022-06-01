@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-project-form',
   templateUrl: './project-form.component.html'
 })
 export class ProjectFormComponent implements OnInit {
-
   @Input() project!: any;
 
   @Output() formCancelled = new EventEmitter<boolean>();
@@ -14,7 +13,7 @@ export class ProjectFormComponent implements OnInit {
 
   projectForm!: FormGroup;
   submitted: boolean = false;
-  createMode: boolean = false;
+  registerMode: boolean = false;
   categories = ['Angular', 'React'];
 
   constructor(private _fb: FormBuilder) { }
@@ -26,7 +25,7 @@ export class ProjectFormComponent implements OnInit {
   ngOnInit(): void {
     const project = this.project;
 
-    this.createMode = !project;
+    this.registerMode = !project;
 
     this.projectForm = this._fb.group({
       id: [{ value: '', disabled: true }],
@@ -38,7 +37,7 @@ export class ProjectFormComponent implements OnInit {
       controls: this._fb.array([])
     });
 
-    if (!this.createMode) this.projectForm.patchValue(project);
+    if (!this.registerMode) this.projectForm.patchValue(project);
   }
 
   // ==================
@@ -69,5 +68,4 @@ export class ProjectFormComponent implements OnInit {
   // ==================
 
   get f() { return this.projectForm.controls; }
-
 }
