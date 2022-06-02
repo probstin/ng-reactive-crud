@@ -9,7 +9,10 @@
         </ng-container>
     
         <ng-container *ngIf="activeIndex === 1">
-            <app-project-form (formSubmitted)="completeStep($event)"></app-project-form>
+            <app-project-form 
+                (formSubmitted)="completeStep($event)" 
+                (formCancelled)="previousStep($event)">
+            </app-project-form>
         </ng-container>
     
         <ng-container *ngIf="activeIndex === 2">

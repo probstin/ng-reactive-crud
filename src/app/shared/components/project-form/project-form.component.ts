@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 export class ProjectFormComponent implements OnInit {
   @Input() project!: any;
 
-  @Output() formCancelled = new EventEmitter<boolean>();
+  @Output() formCancelled = new EventEmitter<any>();
   @Output() formSubmitted = new EventEmitter<any>();
 
   projectForm!: FormGroup;
@@ -46,9 +46,11 @@ export class ProjectFormComponent implements OnInit {
 
   onCancel(): void {
     // check to see if changes have been made
-    if (!this.projectForm.pristine) return;
+    // if (!this.projectForm.pristine) return;
 
-    this.formCancelled.emit(true);
+    const formValue = this.projectForm.getRawValue();
+
+    this.formCancelled.emit(formValue);
   }
 
   onSubmit(): void {

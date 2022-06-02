@@ -28,6 +28,11 @@ export class RegistrationComponent {
     this.changeStep(StepDirection.NEXT);
   }
 
+  previousStep(project: any): void {
+    console.log(project);
+    this.changeStep(StepDirection.PREVIOUS);
+  }
+
   changeStep(stepDirection: StepDirection): void {
     const currentIndex = this.activeIndex;
 
