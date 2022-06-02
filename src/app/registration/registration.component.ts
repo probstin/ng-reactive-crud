@@ -23,7 +23,9 @@ export class RegistrationComponent {
 
   constructor() { }
 
-  ngOnInit() {
+  completeStep(project: any): void {
+    console.log(project);
+    this.changeStep(StepDirection.NEXT);
   }
 
   changeStep(stepDirection: StepDirection): void {

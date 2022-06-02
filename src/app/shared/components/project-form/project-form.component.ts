@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-project-form',
@@ -64,8 +64,26 @@ export class ProjectFormComponent implements OnInit {
   }
 
   // ==================
+  // form interactions
+  // ==================
+
+  addControl(): void {
+    const controlForm = this._fb.group({
+      value: ['', Validators.required]
+    });
+
+    this.controls.push(controlForm);
+  }
+
+  removeControl(controlIndex: number): void {
+    this.controls.removeAt(controlIndex);
+  }
+
+  // ==================
   // helpers
   // ==================
 
   get f() { return this.projectForm.controls; }
+  get controls() { return this.projectForm.controls['controls'] as FormArray; }
+
 }

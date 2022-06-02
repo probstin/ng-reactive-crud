@@ -73,35 +73,66 @@
             <span *ngIf="f['category'].errors['required']">Category is required</span>
         </div>
     </div>
+    <!-- CONTROLS -->
+    <div class="field mb-4 col-12">
+        <label for="pocEmail">Controls</label>
+        <ng-container formArrayName="controls">
+            <ng-container *ngFor="let controlForm of controls.controls; let i = index">
+                <ng-container [formGroup]="controlForm">
+                    <input
+                        formControlName="value" 
+                        type="text"            
+                        pInputText
+                        placeholder="Enter a control">
+                    <button type="button" (click)="removeControl(i)">Remove</button>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <button type="button" (click)="addControl()">Add</button>
+    </div>
     <!-- ACTIONS -->
     <div class="col-12 flex align-items-center justify-content-end border-top-1 surface-border pt-4">
-        <ng-container *ngIf="registerMode then registerTemplate; else editTemplate">
-
+        <ng-container 
+            *ngIf="registerMode then registerTemplate; else editTemplate">
         </ng-container>
     </div>
 </form>
 
 <ng-template #registerTemplate>
-            
+      <button
+        type="button"
+        pButton
+        class="w-auto p-button-text p-button-secondary">
+        <i class="pi pi-arrow-left mr-2"></i>
+        Previous Step
+      </button>     
+      <button
+        type="submit" 
+        pButton
+        class="w-auto"
+        [disabled]="projectForm.invalid">
+        Next Step
+      <i class="pi pi-arrow-right ml-2"></i>
+    </button>  
 </ng-template>
 
 <ng-template #editTemplate>
     <!-- CANCEL BUTTON -->
     <button
-    type="button" 
-    pButton
-    class="w-auto p-button-text p-button-secondary"
-    (click)="onCancel()">
-    <i class="pi pi-times mr-2"></i>
-    Cancel
+        type="button" 
+        pButton
+        class="w-auto p-button-text p-button-secondary"
+        (click)="onCancel()">
+        <i class="pi pi-times mr-2"></i>
+        Cancel
     </button>
     <!-- SUBMIT BUTTON -->
     <button
-    type="submit"
-    pButton
-    class="w-auto ml-2" 
-    [disabled]="projectForm.invalid || projectForm.pristine">
-    <i class="pi pi-check mr-2"></i>
-    Save Changes
+        type="submit"
+        pButton
+        class="w-auto ml-2" 
+        [disabled]="projectForm.invalid || projectForm.pristine">
+        <i class="pi pi-check mr-2"></i>
+        Save Changes
     </button>
 </ng-template>
