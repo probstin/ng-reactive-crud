@@ -7,16 +7,19 @@
         <ng-container *ngIf="activeIndex === 0">
             <app-step-one (changeStep)="changeStep($event)"></app-step-one>
         </ng-container>
-    
+
         <ng-container *ngIf="activeIndex === 1">
-            <app-project-form 
-                (formSubmitted)="completeStep($event)" 
-                (formCancelled)="previousStep($event)">
+            <app-project-form (formSubmitted)="completeStep($event)" (formCancelled)="previousStep($event)">
             </app-project-form>
         </ng-container>
-    
+
         <ng-container *ngIf="activeIndex === 2">
-            <p>Third</p>
+            <app-step-three [accessControls]="{defaultAccess: { name: 'hello', type: 'GOOD', level: 'ADMIN' }}">
+            </app-step-three>
+        </ng-container>
+
+        <ng-container *ngIf="activeIndex === 3">
+            <p>Fourth</p>
         </ng-container>
     </div>
 </div>

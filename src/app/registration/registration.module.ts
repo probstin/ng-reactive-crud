@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { StepOneComponent } from './components/step-one/step-one.component';
 import { StepTwoComponent } from './components/step-two/step-two.component';
 import { StepThreeComponent } from './components/step-three/step-three.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { StepThreeComponent } from './components/step-three/step-three.component
     CommonModule,
     RegistrationRoutingModule,
     PrimengModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class RegistrationModule { }

@@ -1,1 +1,66 @@
-<p>step-three works!</p>
+<form 
+[formGroup]="accessControlForm" 
+(ngSubmit)="onSubmit()"
+class="grid formgrid p-fluid">
+    <div class="field mb-4 col-12">
+        <p-dropdown
+            optionLabel="name"
+            formControlName="defaultAccess"
+            [options]="availableAccesses" 
+            placeholder="Select a category"
+            [ngClass]="{ 'ng-invalid ng-dirty': defaultAccess.errors }">
+        </p-dropdown>
+    </div>
+    <div class="field mb-4 col-12">
+        <label for="pocEmail">Controls</label>
+        <ng-container formArrayName="additionalAccesses">
+            <ng-container *ngFor="let controlForm of additionalAccesses.controls; let i = index">
+                <div [formGroup]="controlForm" class="grid">
+                    <div class="col-4">
+                        <input
+                            formControlName="name" 
+                            type="text"            
+                            pInputText
+                            placeholder="Enter a control"/>
+                    </div>
+                    <div class="col-3">
+                        <input
+                            formControlName="type" 
+                            type="text"            
+                            pInputText
+                            placeholder="Enter a type"/>
+                    </div>
+                    <div class="col-3">
+                        <input
+                            formControlName="level" 
+                            type="text"            
+                            pInputText
+                            placeholder="Enter a level"/>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" (click)="removeControl(i)">Remove</button>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+        <button type="button" (click)="addAdditionalAccess()">Add</button>
+    </div>
+    <div class="col-12 flex align-items-center justify-content-end border-top-1 surface-border pt-4">
+    <button
+        type="button"
+        pButton
+        class="w-auto p-button-text p-button-secondary"
+        (click)="onCancel()">
+        <i class="pi pi-arrow-left mr-2"></i>
+        Previous Step
+    </button>     
+    <button
+        type="submit" 
+        pButton
+        class="w-auto"
+        [disabled]="accessControlForm.invalid">
+        Next Step
+        <i class="pi pi-arrow-right ml-2"></i>
+    </button>  
+    </div>
+</form>
